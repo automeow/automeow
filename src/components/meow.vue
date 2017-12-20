@@ -6,7 +6,8 @@
       left: `${left}%`,
       opacity,
       transitionDuration: `${transitionDuration}s`,
-      animationDuration: `${animationDuration}s`
+      animationDuration: `${animationDuration}s`,
+      fontSize: `${fontSize}em`
     }"
     v-on:click="onClick"
   >
@@ -24,6 +25,7 @@ export default {
       opacity: 1,
       transitionDuration: 15,
       animationDuration: 5,
+      fontSize: 1,
       timer: null
     }
   },
@@ -40,7 +42,8 @@ export default {
       this.left = Math.floor(Math.random() * 100)
       this.opacity = 0.1 + (Math.random() * 0.9)
       this.transitionDuration = 5 + Math.ceil(Math.random() * 10)
-      this.animationDuration = 2 + Math.ceil(Math.random() * 13)
+      this.fontSize = Math.random()
+      this.animationDuration = 2 + Math.ceil(Math.random() * 13 * this.fontSize)
 
       this.timer = setTimeout(
         this.endMovement.bind(this),
