@@ -1,5 +1,10 @@
 <template>
-  <div id="app">
+  <div
+    id="app"
+    v-bind:style="{
+      backgroundImage: `url(${backgroundImage})`
+    }"
+  >
     <audio
       v-for="sound in sounds"
       :key="sound"
@@ -33,7 +38,8 @@ export default {
         'meow1',
         'meow2',
         'meow3'
-      ]
+      ],
+      backgroundImage: 'http://thecatapi.com/api/images/get'
     }
   },
   mounted () {
@@ -61,13 +67,15 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  color: #2c3e50;
+  text-shadow: 0 0 0.3em #2c3e50;
+  color: #fff;
   overflow: hidden;
 
   #app {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    background-size: cover;
 
     .counter {
       position: absolute;
@@ -76,7 +84,7 @@ body {
       transform: translate(-50%, -50%);
       text-align: center;
       font-size: 40vw;
-      opacity: 0.04;
+      opacity: 0.1;
       pointer-events: none;
     }
   }
