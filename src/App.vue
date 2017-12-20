@@ -84,7 +84,7 @@ body {
       transform: translate(-50%, -50%);
       text-align: center;
       font-size: 40vw;
-      opacity: 0.1;
+      opacity: 0.2;
       pointer-events: none;
     }
   }
