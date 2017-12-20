@@ -1,6 +1,9 @@
 <template>
   <div
-    class="meow"
+    v-bind:class="{
+      meow: true,
+      transition
+    }"
     ref="element"
     v-bind:style="{
       top: `${top}%`,
@@ -16,7 +19,8 @@ export default {
   data () {
     return {
       top: -10,
-      left: Math.floor(Math.random() * 100)
+      left: 0,
+      transition: true
     }
   },
   mounted () {
@@ -24,12 +28,17 @@ export default {
   },
   methods: {
     beginMovement () {
-      this.top = 100
+      this.top = 101
+      this.left = Math.floor(Math.random() * 100)
+      this.transition = true
 
-      setTimeout(this.endMovement.bind(this), 16000)
+      setTimeout(this.endMovement.bind(this), 15000)
     },
     endMovement () {
-      this.$emit('ended')
+      this.transition = false
+      this.top = -10
+
+      setTimeout(this.beginMovement.bind(this), 1000)
     }
   }
 }
@@ -38,8 +47,11 @@ export default {
 <style scoped lang="less">
 .meow {
   position: absolute;
-  transition: top 15s linear;
   animation: drift 5s ease-in-out infinite;
+
+  &.transition {
+    transition: top 15s linear;
+  }
 }
 
 @keyframes drift {
