@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <div class="counter">
+      {{ meowCount }}
+    </div>
     <meow
       v-for="m in meowCount"
       :key="m"
@@ -48,6 +51,17 @@ body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+
+    .counter {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 40vw;
+      opacity: 0.04;
+      pointer-events: none;
+    }
   }
 }
 </style>
