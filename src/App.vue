@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <meow />
+    <meow v-for="m in meowCount" />
   </div>
 </template>
 
@@ -11,6 +11,24 @@ export default {
   name: 'app',
   components: {
     Meow
+  },
+  data () {
+    return {
+      meowCount: 0
+    }
+  },
+  mounted () {
+    this.increaseMeowCount()
+  },
+  methods: {
+    increaseMeowCount () {
+      this.meowCount++;
+
+      setTimeout(
+        this.increaseMeowCount.bind(this),
+        Math.ceil(Math.random() * 2500)
+      )
+    }
   }
 }
 </script>
