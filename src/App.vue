@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <meow v-for="m in meowCount" />
+    <meow
+      v-for="m in meowCount"
+      :key="m"
+    />
   </div>
 </template>
 
@@ -22,7 +25,7 @@ export default {
   },
   methods: {
     increaseMeowCount () {
-      this.meowCount++;
+      this.meowCount++
 
       setTimeout(
         this.increaseMeowCount.bind(this),
