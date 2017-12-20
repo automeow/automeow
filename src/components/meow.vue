@@ -48,6 +48,7 @@ export default {
     onClick () {
       clearTimeout(this.timer)
       this.endMovement()
+      this.$emit('click')
     },
     beginMovement () {
       this.top = 101

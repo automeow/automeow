@@ -1,11 +1,19 @@
 <template>
   <div id="app">
+    <audio
+      v-for="sound in sounds"
+      :key="sound"
+      ref="meows"
+      :src="`static/${sound}.mp3`" />
+
     <div class="counter">
       {{ meowCount }}
     </div>
+
     <meow
       v-for="m in meowCount"
       :key="m"
+      v-on:click="playSound"
     />
   </div>
 </template>
@@ -20,7 +28,12 @@ export default {
   },
   data () {
     return {
-      meowCount: 0
+      meowCount: 0,
+      sounds: [
+        'meow1',
+        'meow2',
+        'meow3'
+      ]
     }
   },
   mounted () {
@@ -34,6 +47,10 @@ export default {
         this.increaseMeowCount.bind(this),
         Math.ceil(Math.random() * 2500)
       )
+    },
+    playSound () {
+      const index = Math.floor(this.$refs.meows.length * Math.random())
+      this.$refs.meows[index].play()
     }
   }
 }
