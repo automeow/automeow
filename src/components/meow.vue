@@ -4,11 +4,13 @@
       meow: true,
       transition
     }"
-    ref="element"
     v-bind:style="{
       top: `${top}%`,
-      left: `${left}%`
-    }">
+      left: `${left}%`,
+      opacity
+    }"
+    v-on:click="onClick"
+  >
     Meow
   </div>
 </template>
@@ -20,25 +22,32 @@ export default {
     return {
       top: -10,
       left: 0,
-      transition: true
+      opacity: 1,
+      transition: true,
+      timer: null
     }
   },
   mounted () {
-    setTimeout(this.beginMovement.bind(this), 0)
+    this.timer = setTimeout(this.beginMovement.bind(this), 0)
   },
   methods: {
+    onClick () {
+      clearTimeout(this.timer)
+      this.endMovement()
+    },
     beginMovement () {
       this.top = 101
       this.left = Math.floor(Math.random() * 100)
       this.transition = true
+      this.opacity = 0.1 + (Math.random() * 0.9)
 
-      setTimeout(this.endMovement.bind(this), 15000)
+      this.timer = setTimeout(this.endMovement.bind(this), 15000)
     },
     endMovement () {
       this.transition = false
       this.top = -10
 
-      setTimeout(this.beginMovement.bind(this), 1000)
+      this.timer = setTimeout(this.beginMovement.bind(this), 1000)
     }
   }
 }
@@ -48,6 +57,7 @@ export default {
 .meow {
   position: absolute;
   animation: drift 5s ease-in-out infinite;
+  cursor: pointer;
 
   &.transition {
     transition: top 15s linear;
