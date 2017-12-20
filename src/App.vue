@@ -1,9 +1,7 @@
 <template>
   <div
     id="app"
-    v-bind:style="{
-      backgroundImage: `url(${backgroundImage})`
-    }"
+    v-bind:style="{ backgroundImage }"
     v-on:click="updateBackgroundImage"
   >
     <audio
@@ -42,7 +40,12 @@ export default {
         'meow2',
         'meow3'
       ],
-      backgroundImage: CAT_API_BASE
+      backgroundImages: [CAT_API_BASE]
+    }
+  },
+  computed: {
+    backgroundImage () {
+      return this.backgroundImages.map(i => `url(${i})`).join(', ')
     }
   },
   mounted () {
@@ -63,7 +66,13 @@ export default {
       this.meowCount--
     },
     updateBackgroundImage () {
-      this.backgroundImage = `${CAT_API_BASE}?date=${new Date().getTime()}`
+      this.backgroundImages
+        .unshift(`${CAT_API_BASE}?date=${new Date().getTime()}`)
+
+      setTimeout(this.removeUnusedBackgroundImages.bind(this), 5000)
+    },
+    removeUnusedBackgroundImages () {
+      this.backgroundImages = [this.backgroundImages[0]]
     }
   }
 }
