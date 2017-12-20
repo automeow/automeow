@@ -1,13 +1,11 @@
 <template>
   <div
-    v-bind:class="{
-      meow: true,
-      transition
-    }"
+    class="meow"
     v-bind:style="{
       top: `${top}%`,
       left: `${left}%`,
-      opacity
+      opacity,
+      transitionDuration: `${transitionDuration}s`
     }"
     v-on:click="onClick"
   >
@@ -23,7 +21,7 @@ export default {
       top: -10,
       left: 0,
       opacity: 1,
-      transition: true,
+      transitionDuration: 15,
       timer: null
     }
   },
@@ -38,14 +36,17 @@ export default {
     beginMovement () {
       this.top = 101
       this.left = Math.floor(Math.random() * 100)
-      this.transition = true
       this.opacity = 0.1 + (Math.random() * 0.9)
+      this.transitionDuration = 5 + Math.ceil(Math.random() * 10)
 
-      this.timer = setTimeout(this.endMovement.bind(this), 15000)
+      this.timer = setTimeout(
+        this.endMovement.bind(this),
+        this.transitionDuration * 1000
+      )
     },
     endMovement () {
-      this.transition = false
       this.top = -10
+      this.transitionDuration = 0
 
       this.timer = setTimeout(this.beginMovement.bind(this), 1000)
     }
@@ -58,10 +59,8 @@ export default {
   position: absolute;
   animation: drift 5s ease-in-out infinite;
   cursor: pointer;
-
-  &.transition {
-    transition: top 15s linear;
-  }
+  transition-timing-function: linear;
+  transition-property: top;
 }
 
 @keyframes drift {
