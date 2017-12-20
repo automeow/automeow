@@ -57,6 +57,7 @@ export default {
     playSound () {
       const index = Math.floor(this.$refs.meows.length * Math.random())
       this.$refs.meows[index].play()
+      this.meowCount--
     }
   }
 }
