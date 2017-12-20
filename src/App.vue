@@ -4,6 +4,7 @@
     v-bind:style="{
       backgroundImage: `url(${backgroundImage})`
     }"
+    v-on:click="updateBackgroundImage"
   >
     <audio
       v-for="sound in sounds"
@@ -26,6 +27,8 @@
 <script>
 import Meow from './components/meow'
 
+const CAT_API_BASE = 'http://thecatapi.com/api/images/get'
+
 export default {
   name: 'app',
   components: {
@@ -39,7 +42,7 @@ export default {
         'meow2',
         'meow3'
       ],
-      backgroundImage: 'http://thecatapi.com/api/images/get'
+      backgroundImage: CAT_API_BASE
     }
   },
   mounted () {
@@ -58,6 +61,9 @@ export default {
       const index = Math.floor(this.$refs.meows.length * Math.random())
       this.$refs.meows[index].play()
       this.meowCount--
+    },
+    updateBackgroundImage () {
+      this.backgroundImage = `${CAT_API_BASE}?date=${new Date().getTime()}`
     }
   }
 }
