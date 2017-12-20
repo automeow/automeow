@@ -14,7 +14,8 @@
     <div
       class="tumble"
       v-bind:style="{
-        transform: `rotate3d(${rotateX}, ${rotateY}, ${rotateZ}, ${rotateAngle}deg)`
+        transform: `rotate3d(${rotateX}, ${rotateY}, ${rotateZ}, ${rotateAngle}deg)`,
+        transitionDuration: `${transitionDuration}s`
       }"
     >
       Meow
@@ -82,6 +83,11 @@ export default {
   cursor: pointer;
   transition-timing-function: linear;
   transition-property: top;
+
+  .tumble {
+    transition-timing-function: ease;
+    transition-property: transform;
+  }
 }
 
 @keyframes drift {
