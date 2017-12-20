@@ -11,7 +11,14 @@
     }"
     v-on:click="onClick"
   >
-    Meow
+    <div
+      class="tumble"
+      v-bind:style="{
+        transform: `rotate3d(${rotateX}, ${rotateY}, ${rotateZ}, ${rotateAngle}deg)`
+      }"
+    >
+      Meow
+    </div>
   </div>
 </template>
 
@@ -20,13 +27,17 @@ export default {
   name: 'meow',
   data () {
     return {
+      timer: null,
       top: -10,
       left: 0,
       opacity: 1,
       transitionDuration: 15,
       animationDuration: 5,
       fontSize: 1,
-      timer: null
+      rotateX: 0,
+      rotateY: 0,
+      rotateZ: 0,
+      rotateAngle: 180
     }
   },
   mounted () {
@@ -44,6 +55,10 @@ export default {
       this.transitionDuration = 5 + Math.ceil(Math.random() * 10)
       this.fontSize = Math.random()
       this.animationDuration = 2 + Math.ceil(Math.random() * 13 * this.fontSize)
+      this.rotateX = Math.random()
+      this.rotateY = Math.random()
+      this.rotateZ = Math.random()
+      this.rotateAngle = Math.random() * 360
 
       this.timer = setTimeout(
         this.endMovement.bind(this),
